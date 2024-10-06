@@ -4,16 +4,18 @@ import scala.collection.mutable
 
 // new language
 object PBJ:
+  // types for values
   type Value = Double
   type Element = String
   type Set = mutable.Map[Element, Value]
 
-  // for scope
+  // types for scope
   type Environment = mutable.Map[String, Value]
   type Stack = mutable.Stack[Environment]
   type Context = Stack ?=> Value
   given StackVal: Stack = mutable.Stack(mutable.Map[String, Value]())
 
+// define logic
 object ExpressionCalc:
   import PBJ.*
 //  type EnvironmentTable = mutable.Map[String, Int]
@@ -56,10 +58,12 @@ object ExpressionCalc:
 
   // fuzzy set
 
+  // enumeration for the different operations
   enum ExpOperation:
-    case Value(v: Value)
-    case Variable(name: String)
+    case Value(v: Value) // constant value
+    case Variable(name: String) // variable
 
+    // the set operations
     case AssignVal(name: String, expr: ExpOperation)
     case Union(p1: ExpOperation, p2: ExpOperation)
     case Intersect(p1: ExpOperation, p2: ExpOperation)
@@ -69,6 +73,7 @@ object ExpressionCalc:
     case XorVal(p1: ExpOperation, p2: ExpOperation)
     case Scope(body: ExpOperation)
 
+    // addition and multiplication operations
     case Add(p1: ExpOperation, p2: ExpOperation)
     case Mult(p1: ExpOperation, p2: ExpOperation)
 //    case Sub(p1: ExpOperation, p2: ExpOperation)
@@ -80,25 +85,29 @@ object ExpressionCalc:
   import ExpOperation.*
 
   def eval(exp: ExpOperation): Context = exp match
-    case Value(v) => v
+    case Value(v) => v // just return the original value
     
+    // look for variable in environment
     case Variable(name) =>
       summon[Stack].find(_.contains(name)) match
         case Some(a) => a(name)
         case None => throw new Exception(s"$name not found")
 
+      // variable assignment
     case AssignVal(name, expr) =>
       val newVal = eval(expr)
       summon[Stack].top.update(name, newVal)
       newVal
 
+      // union is max of variables
     case Union(p1, p2) =>
       Math.max(eval(p1), eval(p2))
 
+      // intersection is min. of variables
     case Intersect(p1, p2) =>
       Math.min(eval(p1), eval(p2))
       
-      // case for and val
+      // case for and val (multiplication)
     case AndVal(p1, p2) =>
       eval(p1) * eval(p2)
       
@@ -113,8 +122,10 @@ object ExpressionCalc:
     case XorVal(p1, p2) =>
       Math.abs(eval(p1) - eval(p2))
 
+      // deal with new scope
     case Scope(body) =>
       val stackVal = summon[Stack]
+      // add new environment for scope
       stackVal.push(mutable.Map[String, Value]())
       val result = eval(body)
       stackVal.pop()
