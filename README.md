@@ -1,5 +1,5 @@
 # 476-HW1
-CS 476 HW 1
+CS 476 HW 1 - Pritika Bhattacharya
 
 Documentation: 
 To compile the program, use "sbt run" and to test the program, use "sbt test". 
@@ -17,11 +17,15 @@ Explanation of code:
           val result1 = eval(Union(Value(0.2), Value(0.6)))
           result1 shouldBe 0.6
         }
+- There's classes that create and use instances of the defined classes. These classes define all the different variables and methods used throughout the program and they each can have a superclass.
 
 Semantics:
 - The fuzzy language and the PBJ language deals with fuzzy sets, variables and operations. The set operations include union, intersection, xor, not, addition and multiplication.
 - Like we learned in class and from the book, this program uses scoping so logic gates and variables can be used for different things depending on the scope its declared in.
+- Classes: each class can have a superclass to inherit methods and fields from
+- Instances: instances of each of the classes can inherit fields from the class/superclasses
 
 Limitations:
 - Other than the given set operations, there's nothing else the languages can really be used for.
 - Fuzzy and PBJ can't tell the difference between the sets and the independent variables.
+- There's limited scope because each class can only have one superclass
