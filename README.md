@@ -1,5 +1,5 @@
-# 476-HW1
-CS 476 HW 1 - Pritika Bhattacharya
+# 476-HW3
+CS 476 HW 3 - Pritika Bhattacharya
 
 Documentation: 
 To compile the program, use "sbt run" and to test the program, use "sbt test". 
@@ -18,6 +18,7 @@ Explanation of code:
           result1 shouldBe 0.6
         }
 - There's classes that create and use instances of the defined classes. These classes define all the different variables and methods used throughout the program and they each can have a superclass.
+- I've also added logic and test cases for partial evaluation which allows PBJ to handle specific cases. This is good for handling errors and exceptions.
 
 Semantics:
 - The fuzzy language and the PBJ language deals with fuzzy sets, variables and operations. The set operations include union, intersection, xor, not, addition and multiplication.
@@ -27,5 +28,5 @@ Semantics:
 
 Limitations:
 - Other than the given set operations, there's nothing else the languages can really be used for.
-- Fuzzy and PBJ can't tell the difference between the sets and the independent variables.
-- There's limited scope because each class can only have one superclass
+- Fuzzy and PBJ can't tell the difference between the sets and the independent variables depending on different contexts.
+- There's limited scope because each class can only have one superclass so there isn't a lot of flexibility.
