@@ -1,3 +1,14 @@
+# Feedback for Homework 3
+
+## Score: 10.8/20
+
+1. -4%: Project does not build; compilation error.
+2. -1.5%: <5 unit/integration tests.
+3. -1.5%: Insufficient documentation on design and implementation of partial evaluation.
+4. -2.2%: Partial or full evaluation should be decided dynamically; i.e. there should only be one construct, `eval`, for both.
+
+---
+
 # Feedback for Homework 2
 
 ## Score: 8.7/15
